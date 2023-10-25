@@ -1,57 +1,42 @@
-  <template>
-    <div>
-      <h1>Artistas</h1>
-      <v-btn @click="showAddArtistDialog = true">Agregar Artista</v-btn>
-      <v-dialog v-model="showAddArtistDialog" max-width="500px">
-        <v-card>
-          <v-card-title>Agregar Artista</v-card-title>
-          <v-card-text>
-            <v-text-field v-model="newArtist" label="Nombre del artista"></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn @click="saveArtist">Agregar</v-btn>
-            <v-btn @click="showAddArtistDialog = false">Cancelar</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <ul>
-        <li v-for="artist in getArtists" :key="artist.id">
-          <div>
-            {{ artist.name }}
-            <v-btn @click="removeArtist(artist.id)" color="red" class="ma-2" small>Eliminar</v-btn>
-          </div>
-        </li>
+<template>
+  <div>
+    <v-text-field v-model="nuevoArtista" label="Escribe el artista que quieres agregar">
+      <template v-slot:append>
+        <v-btn @click="anadirArtista" color="primary">Guardar</v-btn>
+      </template>
+    </v-text-field>
+    <br><br>
+    <ul>
+      <li v-for="(artista, index) in artistas" :key="index">
+        {{ index + 1 }}. {{ artista }}
+        <v-btn color="primary" @click="eliminarArtista(index)">Eliminar</v-btn>
+      </li>
+    </ul>
+  </div>
+</template>
 
+<script>
+import { mapState, mapMutations } from 'vuex';
 
-      </ul>
-    </div>
-  </template>
-
-  <script>
-  import { mapMutations, mapGetters } from 'vuex';
-
-  export default {
-    data() {
-      return {
-        showAddArtistDialog: false,
-        newArtist: '',
-      };
+export default {
+  computed: {
+    ...mapState(['artistas']),
+  },
+  data() {
+    return {
+      nuevoArtista: "",
+    };
+  },
+  methods: {
+    ...mapMutations(['agregarArtista']),
+    anadirArtista() {
+      this.agregarArtista(this.nuevoArtista);
+      this.nuevoArtista = "";
     },
-    computed: {
-      ...mapGetters(['getArtists']),
-    },
-    methods: {
-      ...mapMutations(['addArtist', 'deleteArtist']),
-      saveArtist() {
-        if (this.newArtist.trim() !== '') {
-          this.addArtist({ id: Math.random(), name: this.newArtist });
-          this.newArtist = '';
-          this.showAddArtistDialog = false;
-        }
-      },
-      removeArtist(artistId) {
-        this.deleteArtist(artistId);
-      },
-    },
-  };
-  </script>
+    eliminarArtista(index){
+      this.artistas.splice(index,1);
+    }
+  },
+
+};
+</script>

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Artists from '../views/Artists.vue';
+import Discos from '../views/Discos.vue';
 
 
 Vue.use(VueRouter);
@@ -14,7 +15,7 @@ const routes = [
   {
     path: '/discos',
     name: 'Discos',
-    component: () => import(/* webpackChunkName: "discos" */ '../views/Discos.vue'), 
+    component: Discos
   },
 ];
 

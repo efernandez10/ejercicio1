@@ -9,11 +9,15 @@ export default new Vuex.Store({
 
   state: {
     artistas: [],
+    discos:[],
   },
 
   mutations: {
     agregarArtista(state, nuevoArtista) {
       state.artistas.push(nuevoArtista);
+    },
+    agregarDisco(state, nuevoDisco) {
+      state.discos.push(nuevoDisco);
     },
   },
   plugins: [createPersistedState()],

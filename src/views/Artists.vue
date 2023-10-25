@@ -9,7 +9,7 @@
     <ul>
       <li v-for="(artista, index) in artistas" :key="index">
         {{ index + 1 }}. {{ artista }}
-        <v-btn color="primary" @click="eliminarArtista(index)">Eliminar</v-btn>
+        <v-btn color="primary" @click="eliminarArtista(index)">Eliminar</v-btn> <br><br>
       </li>
     </ul>
   </div>
